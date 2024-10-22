@@ -1,0 +1,52 @@
+/* Card.css */
+.card {
+    display: flex;
+    border: 1px solid #ccc; /* Default border color */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 900px; /* Set a maximum width for the card */
+    height: 60vh;
+    color: black;
+    align-items: center;
+    margin-left: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+    margin-bottom: 40px;
+    padding: 10px;
+}
+
+.card:hover {
+    border-color: black; /* Change border color on hover */
+    box-shadow: 0 6px 12px rgba(3, 4, 6, 0.5); /* Increase shadow on hover */
+}
+
+.card-image img {
+    width: 400px; /* Set width */
+    height: 400px; /* Set height */
+    border-radius: 50%; /* Make image circular */
+    object-fit: cover; /* Ensure image covers the entire area without distortion */
+    margin-left: 0px;
+}
+
+.card-info {
+    width: 500px;
+    padding: 25px; /* Space around the text */
+    display: flex;
+    flex-direction: column; /* Stack title and description vertically */
+    justify-content: center; /* Center the content */
+}
+
+.card-info h1 {
+    font-size: 3.5em; /* Adjust font size for name */
+    margin: 0; /* Remove default margin */
+}
+
+.card-info h2 {
+    margin: 4px 0; /* Adjust margin for paragraphs */
+    font-size: 2.5em; /* Font size for email and designation */
+}
+
+.card-info h3 {
+    margin: 4px 0; /* Adjust margin for paragraphs */
+    font-size: 1.5em; /* Font size for email and designation */
+}

@@ -1,0 +1,45 @@
+/* Navbar.css */
+.navbar {
+    background-color: white; /* Dark background */
+    color: black; /* White text color */
+    padding: 15px; /* Padding around the navbar */
+    margin-bottom: 40px;
+    border: 0px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
+
+.navbar-content {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between title and buttons */
+    align-items: center; /* Center items vertically */
+    width: 1490px; /* Set a maximum width for the navbar */
+    margin: 0 auto; /* Center the navbar */
+}
+
+.navbar-title {
+    margin: 0; /* Remove default margin */
+    font-size: 2.5em; /* Font size for the title */
+    font-weight: bold;
+}
+
+.navbar-buttons {
+    display: flex; /* Use flexbox for button alignment */
+}
+
+.navbar-button {
+    background-color: black; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for buttons */
+    margin-left: 10px; /* Space between buttons */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+    font-weight: bold;
+}
+
+.navbar-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
