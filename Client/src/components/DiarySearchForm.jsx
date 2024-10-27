@@ -4,6 +4,7 @@ import './DiarySearchForm.css'; // Import the CSS file for styling
 
 const DiarySearchForm = () => {
   const [name, setName] = useState(''); // To store inputted name
+  const [caseNo, setCaseNo] = useState(''); // To store inputted case number
   const [entries, setEntries] = useState([]); // To store fetched diary entries
   const [error, setError] = useState(null); // To store any error messages
   const [judgment, setJudgment] = useState(''); // To store the judgment state
@@ -13,7 +14,7 @@ const DiarySearchForm = () => {
     setError(null); // Reset error before making a new request
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/diary/search?name=${name}`);
+      const response = await axios.get(`http://localhost:5000/api/diary/search?name=${name}&caseNo=${caseNo}`);
       setEntries(response.data); // Set the retrieved entries in state
     } catch (error) {
       setError(error.response?.data?.message || 'Error fetching diary entries');
@@ -38,6 +39,15 @@ const DiarySearchForm = () => {
             className="input"
           />
         </label>
+        <label className="form-label">
+          <h2>Case No:</h2>
+          <input
+            type="text"
+            value={caseNo}
+            onChange={(e) => setCaseNo(e.target.value)}
+            className="input"
+          />
+        </label>
         <button type="submit" className="submit-button">Search</button>
       </form>
 
@@ -45,12 +55,24 @@ const DiarySearchForm = () => {
       {error && <p className="error-message">{error}</p>}
       {entries.length > 0 && (
         <div className="results">
-          <h2>Diary Entries for "{name}":</h2>
+          <h2>Diary Entries for "{name}" with Case No "{caseNo}":</h2>
           <ul className="entries-list">
             {entries.map((entry) => (
               <li key={entry._id} className="entry-item">
+                <p><strong>Case No:</strong> {entry.caseNo}</p>
                 <p><strong>Date:</strong> {new Date(entry.date).toLocaleDateString()}</p>
                 <p><strong>Description:</strong> {entry.description}</p>
+                
+                {entry.image && (
+                  <div className="entry-image">
+                    <p><strong>Uploaded Image:</strong></p>
+                    <img
+                      src={`http://localhost:5000/${entry.image}`} // Ensure this path aligns with your server setup
+                      alt="Uploaded document"
+                      className="uploaded-image"
+                    />
+                  </div>
+                )}
               </li>
             ))}
           </ul>

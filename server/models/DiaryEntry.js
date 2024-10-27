@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
-const DiaryEntrySchema = new mongoose.Schema({
+const diarySchema = new mongoose.Schema({
+  caseNo: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
@@ -13,6 +17,12 @@ const DiaryEntrySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+  document: {
+    type: String, // Path to the uploaded document
+  },
+  image: {
+    type: String, // Path to the uploaded image
+  },
+}, { timestamps: true });
 
-module.exports = mongoose.model('DiaryEntry', DiaryEntrySchema);
+module.exports = mongoose.model('Diary', diarySchema);

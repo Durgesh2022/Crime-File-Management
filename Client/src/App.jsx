@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 const App = () => {
   const cardData = {
     
-    title: 'Police Officer',
+    title: 'Judge',
     name: 'John Doe',
     email: 'john.doe@example.com',
     designation: 'Software Engineer',

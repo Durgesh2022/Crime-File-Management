@@ -13,6 +13,7 @@
     gap: 20px; /* Space between columns */
     width: 100%; /* Full width */
     max-width: 1200px; /* Optional: Limit max width */
+    height: 100%;
   }
   
   .diary {
