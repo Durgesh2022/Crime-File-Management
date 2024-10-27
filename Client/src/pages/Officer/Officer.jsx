@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import "./App.css"; // Assuming you have some global styles here
 import Record from "../../components/Reacord";
 import Card from "../../components/card";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import axios from "axios";
+
 const Officer = () => {
-    const cardData = {
-        title: "Police Officer",
-        name: "John Doe",
-        email: "john.doe@example.com",
-        // designation: "Software Engineer",
-    };
+    const token = localStorage.getItem("token"); // Retrieve the token from local storage
+
+    // State to store user data
+    const [cardData, setCardData] = useState({
+        title: "",
+        name: "",
+        email: "",
+    });
 
     const getImageUrl = (title) => {
         if (title === "Police Officer") {
@@ -23,6 +27,38 @@ const Officer = () => {
         return ""; // Default case (if title doesn't match)
     };
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(
+                    "http://localhost:8000/api/user/current",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                // Assuming response.data.user contains the user details
+                const user = response.data.user;
+
+                // Update cardData state with user information
+                setCardData({
+                    title: user.title,
+                    name: user.name,
+                    email: user.email,
+                });
+            } catch (error) {
+                console.error(
+                    "Error fetching user data:",
+                    error.response.data.message
+                );
+            }
+        };
+
+        fetchUserData();
+    }, [token]);
+
     return (
         <div>
             <Navbar />
@@ -31,7 +67,6 @@ const Officer = () => {
                 title={cardData.title}
                 name={cardData.name}
                 email={cardData.email}
-                // designation={cardData.designation}
             />
 
             <div className="App">

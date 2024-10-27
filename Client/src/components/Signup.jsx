@@ -10,7 +10,7 @@ export default function LoginPopup({ setshowlogin }) {
         name: "",
         email: "",
         password: "",
-        title: "Judge",
+        title: "",
     });
 
     const onChangeHandler = (e) => {
@@ -20,22 +20,25 @@ export default function LoginPopup({ setshowlogin }) {
     };
 
     const onSubmitHandler = async (e) => {
-        // e.preventDefault();
-        navigate("/officer");
-        // const apiUrl =
-        //     currState === "login" ? "/api/user/login" : "/api/user/register";
+        e.preventDefault();
 
-        // try {
-        //     const res = await axios.post(apiUrl, data);
-        //     if (res.data.success) {
-        //         localStorage.setItem("token", res.data.token);
-        //         setshowlogin(false);
-        //     } else {
-        //         alert(res.data.message);
-        //     }
-        // } catch (error) {
-        //     alert("An error occurred. Please try again.");
-        // }
+        const apiUrl =
+            currState === "login"
+                ? "http://localhost:8000/api/user/login"
+                : "http://localhost:8000/api/user/register";
+
+        try {
+            const res = await axios.post(apiUrl, data);
+            if (res.data.success) {
+                localStorage.setItem("token", res.data.token);
+                setshowlogin(false);
+                navigate("/officer");
+            } else {
+                console.log(res.data.message);
+            }
+        } catch (error) {
+            alert("An error occurred. Please try again.");
+        }
     };
 
     React.useEffect(() => {
@@ -75,6 +78,9 @@ export default function LoginPopup({ setshowlogin }) {
                                 onChange={onChangeHandler}
                                 required
                             >
+                                <option value="" disabled>
+                                    Select your title
+                                </option>
                                 <option value="Judge">Judge</option>
                                 <option value="Police Officer">
                                     Police Officer

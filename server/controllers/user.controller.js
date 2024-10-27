@@ -70,7 +70,26 @@ const registerUser = async (req, res) => {
     }
 };
 
+const getCurrentUserTitle = async (req, res) => {
+    try {
+        const userId = req.userId; // Get the user ID from the request object
+        const user = await User.findById(userId); // Only select the title field
+
+        if (!user) {
+            return res
+                .status(404)
+                .json({ success: false, message: "User not found." });
+        }
+        user.password = undefined;
+        res.json({ success: true, user }); // Send the title back to the client
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+};
+
 module.exports = {
     loginUser,
     registerUser,
+    getCurrentUserTitle,
 };
