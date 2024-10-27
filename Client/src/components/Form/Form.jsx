@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import './form.css'; // Optional: Create your CSS for styling
+import './form.css'; // Optional: CSS for styling
 import axios from 'axios'; // Axios for making HTTP requests
 
 const DiaryForm = () => {
   const [formData, setFormData] = useState({
+    caseNo: '',
     date: '',
     name: '',
     description: '',
   });
+  const [image, setImage] = useState(null); // State to hold the uploaded image file
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,29 +19,58 @@ const DiaryForm = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]); // Store the uploaded image file
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Add your form submission logic here (e.g., API call)
-    // Reset the form if needed
+    
+    // Create FormData object for sending both text data and image
+    const data = new FormData();
+    data.append('caseNo', formData.caseNo);
+    data.append('date', formData.date);
+    data.append('name', formData.name);
+    data.append('description', formData.description);
+    if (image) {
+      data.append('image', image); // Attach image if available
+    }
+
     try {
-      const response = await axios.post('http://localhost:5000/api/diary', formData); // POST to backend
+      const response = await axios.post('http://localhost:5000/api/diary', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Required for file uploads
+        },
+      });
       console.log('Form submitted successfully:', response.data);
     } catch (error) {
       console.error('Error submitting the form:', error);
     }
+
     // Reset form after submission
     setFormData({
+      caseNo: '',
       date: '',
       name: '',
       description: '',
     });
+    setImage(null); // Clear the image upload
   };
 
   return (
     <div className="form-container">
       <h1>Diary Entry</h1>
       <form onSubmit={handleSubmit}>
+        <label>
+          <h2>Case No:</h2>
+          <input
+            type="text"
+            name="caseNo"
+            value={formData.caseNo}
+            onChange={handleChange}
+            required
+          />
+        </label>
         <label>
           <h2>Date:</h2>
           <input
@@ -67,6 +98,15 @@ const DiaryForm = () => {
             value={formData.description}
             onChange={handleChange}
             required
+          />
+        </label>
+        <label>
+          <h2>Upload Image:</h2>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleImageChange}
           />
         </label>
         <button type="submit">Submit</button>

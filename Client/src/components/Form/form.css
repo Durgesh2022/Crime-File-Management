@@ -1,6 +1,6 @@
 .form-container {
     width: 500px; /* Adjust width as needed */
-    height: 90%;
+    height: 100vh;
     margin: 0 auto; /* Center the form */
     padding: 20px;
     border: 1px solid #ddd;
@@ -9,6 +9,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: black;
     position: absolute;
+    overflow: auto;
   }
   
   h1 {
@@ -36,7 +37,7 @@
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    height: 200px;
+    height: 100px;
   }
   button {
     width: 100%; /* Full width */

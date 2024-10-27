@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const diarySchema = new mongoose.Schema({
+  caseNo: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
@@ -15,6 +19,9 @@ const diarySchema = new mongoose.Schema({
   },
   document: {
     type: String, // Path to the uploaded document
+  },
+  image: {
+    type: String, // Path to the uploaded image
   },
 }, { timestamps: true });
 
